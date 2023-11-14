@@ -1,81 +1,102 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
-            "value": "westus"
-        },
-        "publicIPAddressName": {
-            "value": "PUBLICIP-NAME"
-        },
-        "publicIPNewOrExisting": {
-            "value": "new"
-        },
-        "publicIPAllocationMethod": {
-            "value": "Dynamic"
-        },
-        "vmName": {
-            "value": "VM-NAME"
-        },
-        "adminUsername": {
-            "value": "ADMIN-USERNAME"
-        },
-        "authenticationType": {
-            "value": "password"
-        },
-        "adminPassword": {
-            "value": "ADMIN-PASSWORD"
-        },
-        "adminSshKey": {
-            "value": "ADMIN-SSHKEY"
-        },
-        "vmSize": {
-            "value": "Standard_DS3_v2"
-        },
-        "imageVersion": {
-            "value": "10.1.0"
-        },
-        "srcIPInboundNSG": {
-            "value": "0.0.0.0/0"
-        },
-        "nsgName": {
-            "value": "NSG-NAME"
-        },
-        "virtualNetworkName": {
-            "value": "VNET-NAME"
-        },
-        "virtualNetworkAddressPrefix": {
-            "value": "192.168.0.0/16"
-        },
-        "vnetNewOrExisting": {
-            "value": "new"
-        },
-        "virtualNetworkExistingRGName": {
-            "value": ""
-        },
-        "subnet0Name": {
-            "value": "Mgmt"
-        },
-        "subnet1Name": {
-            "value": "Untrust"
-        },
-        "subnet2Name": {
-            "value": "Trust"
-        },
-        "subnet0Prefix": {
-            "value": "192.168.0.0/24"
-        },
-        "subnet1Prefix": {
-            "value": "192.168.1.0/24"
-        },
-        "subnet2Prefix": {
-            "value": "192.168.2.0/24"
-        },
-        "bootstrap": {
-            "value": "no"
-        },
-        "customData": {
-            "value": "storage-account=None,access-key=None,file-share=None,share-directory=None"
-        }
+      "location": {
+        "value": "[resourceGroup().location]"
+      },
+      "srcIPInboundNSG": {
+        "value": "0.0.0.0/0"
+      },
+      "nsgName": {
+        "value": "DefaultNSG"
+      },
+      "customData": {
+        "value": "storage-account=None,access-key=None,file-share=None,share-directory=None"
+      },
+      "vmName": {
+        "value": "VM-Series"
+      },
+      "imageVersion": {
+        "value": "latest"
+      },
+      "vmSize": {
+        "value": "Standard_DS3_v2"
+      },
+      "virtualNetworkName": {
+        "value": "fwVNET"
+      },
+      "vnetNewOrExisting": {
+        "value": "new"
+      },
+      "virtualNetworkAddressPrefix": {
+        "value": "192.168.0.0/16"
+      },
+      "virtualNetworkExistingRGName": {
+        "value": "pa-fw"
+      },
+      "subnet0Name": {
+        "value": "Mgmt"
+      },
+      "subnet1Name": {
+        "value": "Untrust"
+      },
+      "subnet2Name": {
+        "value": "Trust"
+      },
+      "subnet3Name": {
+        "value": "HA"
+      },
+      "subnet0Prefix": {
+        "value": "192.168.0.0/24"
+      },
+      "subnet1Prefix": {
+        "value": "192.168.1.0/24"
+      },
+      "subnet2Prefix": {
+        "value": "192.168.2.0/24"
+      },
+      "subnet3Prefix": {
+        "value": "192.168.3.0/24"
+      },
+      "authenticationType": {
+        "value": "password"
+      },
+      "adminUsername": {
+        "value": "sadmin"
+      },
+      "adminPassword": {
+        "value": "sadmin@123!!"
+      },
+      "adminSshKey": {
+        "value": null
+      },
+      "publicIPNewOrExisting": {
+        "value": "new"
+      },
+      "publicIPRGName": {
+        "value": "pa-fw"
+      },
+      "publicIPAddressName": {
+        "value": "fwip"
+      },
+      "publicIPAllocationMethod": {
+        "value": "Static"
+      },
+      "bootstrap": {
+        "value": "no"
+      },
+      "zone": {
+        "value": "None"
+      },
+      "availabilitySetName": {
+        "value": "None"
+      },
+      "availabilitySetPlatformFaultDomainCount": {
+        "value": "1"
+      },
+      "availabilitySetPlatformUpdateDomainCount": {
+        "value": "1"
+      }
     }
-}
+  }

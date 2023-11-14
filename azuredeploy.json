@@ -129,6 +129,13 @@
         "description": "Subnet for Trust"
       }
     },
+	"subnet3Name": {
+      "type": "string",
+      "defaultValue": "HA",
+      "metadata": {
+        "description": "Subnet for HA"
+      }
+    },
     "subnet0Prefix": {
       "type": "string",
       "metadata": {
@@ -145,6 +152,12 @@
       "type": "string",
       "metadata": {
         "description": "Trust subnet CIDR"
+      }
+    },
+	"subnet3Prefix": {
+      "type": "string",
+      "metadata": {
+        "description": "HA subnet CIDR"
       }
     },
     "authenticationType": {
@@ -246,21 +259,24 @@
   },
   "variables": {
     "imagePublisher": "paloaltonetworks",
-    "imageSku": "byol",
+    "imageSku": "bundle1",
     "imageOffer": "vmseries-flex",
     "nicName": "[concat(parameters('vmName'), '-', parameters('publicIPAddressName'), '-eth')]",
     "existingVnetID": "[resourceId(parameters('virtualNetworkExistingRGName'),concat('Microsoft.Network','/','virtualNetworks'),parameters('virtualNetworkName'))]",
     "existingSubnet0Ref": "[concat(variables('existingVnetID'),'/subnets/',parameters('subnet0Name'))]",
     "existingSubnet1Ref": "[concat(variables('existingVnetID'),'/subnets/',parameters('subnet1Name'))]",
     "existingSubnet2Ref": "[concat(variables('existingVnetID'),'/subnets/',parameters('subnet2Name'))]",
+    "existingSubnet3Ref": "[concat(variables('existingVnetID'),'/subnets/',parameters('subnet3Name'))]",
     "newVnetID": "[resourceId('Microsoft.Network/virtualNetworks',parameters('virtualNetworkName'))]",
     "newSubnet0Ref": "[concat(variables('newVnetID'),'/subnets/',parameters('subnet0Name'))]",
     "newSubnet1Ref": "[concat(variables('newVnetID'),'/subnets/',parameters('subnet1Name'))]",
     "newSubnet2Ref": "[concat(variables('newVnetID'),'/subnets/',parameters('subnet2Name'))]",
+    "newSubnet3Ref": "[concat(variables('newVnetID'),'/subnets/',parameters('subnet3Name'))]",
     "vnetID": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newVnetID'), variables('existingVnetID'))]",
     "subnet0Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet0Ref'), variables('existingSubnet0Ref'))]",
     "subnet1Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet1Ref'), variables('existingSubnet1Ref'))]",
     "subnet2Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet2Ref'), variables('existingSubnet2Ref'))]",
+    "subnet3Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet2Ref'), variables('existingSubnet3Ref'))]",
     "zones": [
       "[parameters('zone')]"
     ],
@@ -298,6 +314,12 @@
         "name": "[parameters('subnet2Name')]",
         "properties": {
           "addressPrefix": "[parameters('subnet2Prefix')]"
+        }
+      },
+      {
+        "name": "[parameters('subnet3Name')]",
+        "properties": {
+          "addressPrefix": "[parameters('subnet3Prefix')]"
         }
       }
     ]
@@ -469,6 +491,31 @@
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
                 "id": "[variables('subnet2Ref')]"
+              }
+            }
+          }
+        ]
+      }
+    },
+	    {
+      "name": "[concat(variables('nicName'), '3')]",
+      "type": "Microsoft.Network/networkInterfaces",
+      "apiVersion": "2017-10-01",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
+      ],
+      "location": "[parameters('location')]",
+      "properties": {
+        "enableIPForwarding": true,
+        "enableAcceleratedNetworking": "[if(equals(parameters('imageVersion'), 'latest'), 'true', if(equals(parameters('imageVersion'), '9.0.0'), 'true', 'false'))]",
+        "ipConfigurations": [
+          {
+            "name": "ipconfig-trust",
+            "properties": {
+              "privateIPAllocationMethod": "Dynamic",
+              "subnet": {
+                "id": "[variables('subnet3Ref')]"
               }
             }
           }
