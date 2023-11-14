@@ -550,6 +550,7 @@
         "[concat(variables('nicName'), '0')]",
         "[concat(variables('nicName'), '1')]",
         "[concat(variables('nicName'), '2')]",
+        "[concat(variables('nicName'), '3')]",
         "[resourceId('Microsoft.Compute/availabilitySets', parameters('availabilitySetName'))]"
       ],
       "location": "[parameters('location')]",
@@ -596,6 +597,12 @@
             },
             {
               "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'),'2'))]",
+              "properties": {
+                "primary": false
+              }
+            },
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('nicName'),'3'))]",
               "properties": {
                 "primary": false
               }
