@@ -276,7 +276,7 @@
     "subnet0Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet0Ref'), variables('existingSubnet0Ref'))]",
     "subnet1Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet1Ref'), variables('existingSubnet1Ref'))]",
     "subnet2Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet2Ref'), variables('existingSubnet2Ref'))]",
-    "subnet3Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet2Ref'), variables('existingSubnet3Ref'))]",
+    "subnet3Ref": "[if(equals(parameters('vnetNewOrExisting'),'new'), variables('newSubnet3Ref'), variables('existingSubnet3Ref'))]",
     "zones": [
       "[parameters('zone')]"
     ],
