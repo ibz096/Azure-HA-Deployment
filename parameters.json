@@ -33,7 +33,7 @@
         "value": "192.168.0.0/16"
       },
       "virtualNetworkExistingRGName": {
-        "value": "pa-fw"
+        "value": "resourceGroup().name"
       },
       "subnet0Name": {
         "value": "Mgmt"
@@ -75,7 +75,7 @@
         "value": "new"
       },
       "publicIPRGName": {
-        "value": "pa-fw"
+        "value": "resourceGroup().name"
       },
       "publicIPAddressName": {
         "value": "fwip"
